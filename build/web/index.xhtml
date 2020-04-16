@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <p:dataGrid var="produto" value="#{produtoMB.produtos}" columns="5" layout="grid"
+                        rows="10" paginator="true" id="grid" emptyMessage="Carrinho vazio">
+                <f:facet name="header">
+                    Carrinho de Compras
+                </f:facet>
+                
+                <p:panel header="#{produto.nome}" style="text-align: center">
+                    <h:panelGrid columns="1" style="width: 100%">
+                        <h:outputText value="Descrição: #{produto.descricao}"/>
+                        <h:outputText value="Quantidade: #{produto.qtde}"/>
+                        <h:outputText value="Valor: #{produto.valorUnit}"/>
+                    </h:panelGrid>
+                    <div align="center">
+                        <p:commandButton id="excluir" action="#{produtoMB.excluir(produto)}" icon="ui-icon-trash" title="Excluir"
+                                        onclick="if (!confirm('Confirma a exclusão?')) return false" />
+                        <p:commandButton action="#{produtoMB.buscaDados(produto)}" icon="ui-icon-pencil" title="Editar"/>
+                    </div>
+                    
+                </p:panel>
+            </p:dataGrid>
+            <div align="center">
+                <p:commandButton id="novo" value="Adicionar Produto" icon="ui-icon-plusthick" action="#{produtoMB.novo()}"/>
+                <p:commandButton id="finalizar" value="Finalizar Compra" icon="ui-icon-cart" action="#{produtoMB.calculaTotal}"/> 
+            </div>            
+        </h:form> 
+        
+    </h:body>
+</html>
